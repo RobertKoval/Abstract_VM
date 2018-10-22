@@ -22,7 +22,7 @@ void readFromStdIn(AbstractVM &app) {
 	avmParser                 parser(&tokens);
 	avmParser::ProgContext    *tree = parser.prog();
 
-	if ((parser.getNumberOfSyntaxErrors() && !app.isDebugMode()) || (lexer.getNumberOfSyntaxErrors())) {
+	if ((parser.getNumberOfSyntaxErrors() && !app.isDebugMode()) || (lexer.getNumberOfSyntaxErrors() && !app.isDebugMode())) {
 		throw std::runtime_error("App terminated due to syntax errors!");
 	}
 	else {app.calculate(tree);}
@@ -41,7 +41,7 @@ void readFromFile(AbstractVM &app, char *filename) {
 	avmParser                 parser(&tokens);
 	avmParser::ProgContext    *tree = parser.prog();
 
-	if ((parser.getNumberOfSyntaxErrors() && !app.isDebugMode()) || (lexer.getNumberOfSyntaxErrors())) {
+	if ((parser.getNumberOfSyntaxErrors() && !app.isDebugMode()) || (lexer.getNumberOfSyntaxErrors() && !app.isDebugMode())) {
 		throw std::runtime_error("App terminated due to syntax errors!");
 	}
 	else {app.calculate(tree);}

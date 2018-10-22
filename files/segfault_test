@@ -1,3 +1,13 @@
 push int
 l;;
 ;;
+assert int8(21)
+dump
+add
+push int32(0)
+push int32(0)
+sub
+div
+azaza
+mul
+dump

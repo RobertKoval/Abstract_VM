@@ -11,26 +11,9 @@ typedef enum {
 	OT_INT8,
 	OT_INT16,
 	OT_INT32,
-	OT_INT64,
 	OT_FLOAT,
 	OT_DOUBLE
 }eOperandType;
-
-typedef enum {
-	OP_UNDEFINED = 0,
-	OP_PUSH,
-	OP_POP,
-	OP_DUMP,
-	OP_ASSERT,
-	OP_ADD,
-	OP_SUB,
-	OP_MUL,
-	OP_DIV,
-	OP_MOD,
-	OP_PRINT,
-	OP_EXIT
-
-}eOperation;
 
 class IOperand {
 	public:

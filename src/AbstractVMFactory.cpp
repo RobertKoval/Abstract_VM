@@ -3,6 +3,8 @@
 //
 
 #include <sstream>
+#include <includes/AbstractVMFactory.hpp>
+
 #include "../includes/AbstractVMFactory.hpp"
 #include "includes/TOperand.hpp"
 
@@ -12,76 +14,84 @@ AbstractVMFactory::~AbstractVMFactory() {
 
 }
 
-IOperand *AbstractVMFactory::create(const eOperandType type,
-									const std::string &value) {
+const IOperand *AbstractVMFactory::createOperand(eOperandType type,
+												 const std::string &value) const {
 
-	long double intCheck; // int64
+	typedef const IOperand
+		*(AbstractVMFactory::*Generators)(const std::string &) const;
+	static const Generators gen[] = {&AbstractVMFactory::createInt8,
+							   &AbstractVMFactory::createInt16,
+							   &AbstractVMFactory::createInt32,
+							   &AbstractVMFactory::createFloat,
+							   &AbstractVMFactory::createDouble};
 
-	if (type == OT_INT8) {
-		intCheck = std::stold(value);
-		if (intCheck > INT8_MAX) {
-			throw std::overflow_error(
-				"Error! value \"" + value + "\" overflow type int8!");
-		}
-		else if (intCheck < INT8_MIN) {
-			throw std::underflow_error(
-				"Error! value \"" + value + "\" underflow type int8!");
-		}
-		else {
-			auto *newNumber = new TOperand<int8_t>(type,
-												  static_cast<int8_t >(intCheck),
-												  value);
-			return newNumber;
-		}
+	return (this->*gen[type - 1])(value);
+}
 
+const IOperand *AbstractVMFactory::createInt8(const std::string &value) const {
+	long double intCheck = std::stold(value);
+	if (intCheck > INT8_MAX) {
+		throw std::overflow_error(
+			"Error! value \"" + value + "\" overflow type int8!");
 	}
-	else if (type == OT_INT16) {
-		intCheck = std::stold(value);
-		if (intCheck > INT16_MAX) {
-			throw std::overflow_error(
-				"Error! value \"" + value + "\" overflow type int16!");
-		}
-		else if (intCheck < INT16_MIN) {
-			throw std::underflow_error(
-				"Error! value \"" + value + "\" underflow type int16!");
-		}
-		else {
-			auto *newNumber = new TOperand<int16_t>(type,
-												   static_cast<int16_t >(intCheck),
-												   value);
-			return newNumber;
-		}
-
+	else if (intCheck < INT8_MIN) {
+		throw std::underflow_error(
+			"Error! value \"" + value + "\" underflow type int8!");
 	}
-	else if (type == OT_INT32) {
-		intCheck = std::stold(value);
-		if (intCheck > INT32_MAX) {
-			throw std::overflow_error(
-				"Error! value \"" + value + "\" overflow type int32!");
-		}
-		else if (intCheck < INT32_MIN) {
-			throw std::underflow_error(
-				"Error! value \"" + value + "\" underflow type int32!");
-		}
-		else {
-			auto *newNumber = new TOperand<int32_t>(type,
-												   static_cast<int32_t >(intCheck),
-												   value);
-			return newNumber;
-		}
-	}
-	else if (type == OT_FLOAT) {
-		float flCheck    = std::stof(value);
-		auto  *newNumber = new TOperand<float>(type, flCheck, value);
-		return newNumber;
-
-	}
-	else if (type == OT_DOUBLE) {
-		double dCheck     = std::stod(value);
-		auto   *newNumber = new TOperand<double>(type, dCheck, value);
+	else {
+		auto *newNumber = new TOperand<int8_t>(OT_INT8,
+											   static_cast<int8_t >(intCheck),
+											   value);
 		return newNumber;
 	}
-	return nullptr;
+}
+
+const IOperand *AbstractVMFactory::createInt16(const std::string &value) const {
+	long double intCheck = std::stold(value);
+	if (intCheck > INT16_MAX) {
+		throw std::overflow_error(
+			"Error! value \"" + value + "\" overflow type int16!");
+	}
+	else if (intCheck < INT16_MIN) {
+		throw std::underflow_error(
+			"Error! value \"" + value + "\" underflow type int16!");
+	}
+	else {
+		auto *newNumber = new TOperand<int16_t>(OT_INT16,
+												static_cast<int16_t >(intCheck),
+												value);
+		return newNumber;
+	}
+}
+
+const IOperand *AbstractVMFactory::createInt32(const std::string &value) const {
+	long double intCheck = std::stold(value);
+	if (intCheck > INT32_MAX) {
+		throw std::overflow_error(
+			"Error! value \"" + value + "\" overflow type int32!");
+	}
+	else if (intCheck < INT32_MIN) {
+		throw std::underflow_error(
+			"Error! value \"" + value + "\" underflow type int32!");
+	}
+	else {
+		auto *newNumber = new TOperand<int32_t>(OT_INT32,
+												static_cast<int32_t >(intCheck),
+												value);
+		return newNumber;
+	}
+}
+
+const IOperand *AbstractVMFactory::createFloat(const std::string &value) const {
+	float flCheck    = std::stof(value);
+	auto  *newNumber = new TOperand<float>(OT_FLOAT, flCheck, value);
+	return newNumber;
+}
+
+const IOperand *AbstractVMFactory::createDouble(const std::string &value) const {
+	double dCheck     = std::stod(value);
+	auto   *newNumber = new TOperand<double>(OT_DOUBLE, dCheck, value);
+	return newNumber;
 }
 
 

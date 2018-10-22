@@ -7,8 +7,7 @@
 
 #include <vector>
 #include "AbstractVMFactory.hpp"
-#include "AbstractVMVisiter.hpp"
-
+#include <gen/avmParser.h>
 class AbstractVM {
 	public:
 		AbstractVM();
@@ -20,7 +19,7 @@ class AbstractVM {
 		void setDebugMode(bool _debugMode);
 		bool isDebugMode() const;
 		static eOperandType getBigerType(const eOperandType &a,
-											   const eOperandType &b);
+										 const eOperandType &b);
 	private:
 		void _push(eOperandType type, const std::string &value);
 		void _pop(avmParser::LineContext *ctx);
@@ -34,9 +33,9 @@ class AbstractVM {
 		void _div(avmParser::LineContext *ctx);
 		void _mod(avmParser::LineContext *ctx);
 		void _print(avmParser::LineContext *ctx) const;
-		AbstractVMFactory       _factory;
-		std::vector<IOperand *> _stack;
-		bool                    _debugMode;
+		AbstractVMFactory             _factory;
+		std::vector<const IOperand *> _stack;
+		bool                          _debugMode;
 
 };
 

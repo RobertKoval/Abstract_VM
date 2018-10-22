@@ -17,7 +17,7 @@ include_directories(
 )
 
 add_executable(AbstractVMv1 src/main.cpp /Users/rkoval/CLionProjects/AbstractVMv1/gen/avmLexer.cpp
-        /Users/rkoval/CLionProjects/AbstractVMv1/gen/avmParser.cpp src/AbstractVM.cpp includes/AbstractVM.hpp src/AbstractVMVisiter.cpp includes/AbstractVMVisiter.hpp includes/TOperand.hpp src/AbstractVMFactory.cpp includes/AbstractVMFactory.hpp)
+        /Users/rkoval/CLionProjects/AbstractVMv1/gen/avmParser.cpp src/AbstractVM.cpp includes/AbstractVM.hpp includes/TOperand.hpp src/AbstractVMFactory.cpp includes/AbstractVMFactory.hpp)
 
 target_link_libraries(AbstractVMv1 "${PROJECT_SOURCE_DIR}/lib/libantlr4-runtime.dylib")
 

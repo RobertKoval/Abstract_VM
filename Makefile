@@ -3,7 +3,6 @@ NAME = avm
 SRC = AbstractVMFactory.cpp\
       AbstractVM.cpp\
       main.cpp\
-      AbstractVMVisiter.cpp\
       ../gen/avmLexer.cpp\
        ../gen/avmParser.cpp \
        ../gen/avmVisitor.cpp\
@@ -17,8 +16,9 @@ CXX = clang++
 SRC_DIR = src
 OBJ_DIR = obj
 INC_DIR = includes
+LIB_INC_DIR = gen
 CXXFLAGS =  -std=c++14 -Wall -Werror -Wextra  -I. -I ./antlr4-runtime/ -I ./lib/ \
-												-I ./gen/
+												-I ./gen/ -I ./includes/
 LINKER =  -L lib/ -lantlr4-runtime
 
 # COLORS
@@ -37,7 +37,7 @@ BOLDWHITE=	\033[1m\033[37m
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
+$(NAME): $(OBJ) $(INC_DIR) $(LIB_INC_DIR)
 	$(CXX) -o $(NAME) $(CXXFLAGS) $(LINKER) $(OBJ)
 	@echo "$(GREEN)avm  $(BOLDRED)made$(RESET)"
 

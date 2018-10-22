@@ -7,7 +7,6 @@
 #include "antlr4-runtime.h"
 #include "avmListener.h"
 
-
 /**
  * This class provides an empty implementation of avmListener,
  * which can be extended to create a listener which only needs to handle a subset
