@@ -16,6 +16,8 @@ class AbstractVMFactory {
 		const IOperand *createOperand(eOperandType type,
 									  const std::string &value) const;
 	private:
+		AbstractVMFactory(const AbstractVMFactory &src);
+		AbstractVMFactory &operator=(const AbstractVMFactory &src);
 		const IOperand *createInt8(const std::string &value) const;
 		const IOperand *createInt16(const std::string &value) const;
 		const IOperand *createInt32(const std::string &value) const;

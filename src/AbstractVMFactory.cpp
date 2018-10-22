@@ -94,6 +94,14 @@ const IOperand *AbstractVMFactory::createDouble(const std::string &value) const 
 	return newNumber;
 }
 
+AbstractVMFactory::AbstractVMFactory(const AbstractVMFactory &src) {
+	*this = src;
+}
+
+AbstractVMFactory &AbstractVMFactory::operator=(const AbstractVMFactory &src) {
+	return *this;
+}
+
 
 ///TODO better overflow for float and double
 

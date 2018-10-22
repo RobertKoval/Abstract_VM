@@ -8,12 +8,11 @@
 #include <vector>
 #include "AbstractVMFactory.hpp"
 #include <gen/avmParser.h>
+
 class AbstractVM {
 	public:
 		AbstractVM();
 		virtual ~AbstractVM();
-		//TODO Copelin form
-
 		eOperandType getType(const std::string &) const;
 		void calculate(avmParser::ProgContext *);
 		void setDebugMode(bool _debugMode);
@@ -21,6 +20,8 @@ class AbstractVM {
 		static eOperandType getBigerType(const eOperandType &a,
 										 const eOperandType &b);
 	private:
+		AbstractVM(const AbstractVM &src);
+		AbstractVM &operator=(const AbstractVM &src);
 		void _push(eOperandType type, const std::string &value);
 		void _pop(avmParser::LineContext *ctx);
 		void _dump(avmParser::LineContext *ctx) const;

@@ -2,11 +2,23 @@
 // Created by Robert on 18.10.18.
 //
 
+#include <includes/AbstractVM.hpp>
+
 #include "includes/AbstractVM.hpp"
 
 AbstractVM::AbstractVM() : _debugMode(false) {}
 
 AbstractVM::~AbstractVM() {}
+
+AbstractVM::AbstractVM(const AbstractVM &src) {*this = src;}
+
+AbstractVM &AbstractVM::operator=(const AbstractVM &src) {
+	if (this != &src) {
+		this->_stack     = src._stack;
+		this->_debugMode = src._debugMode;
+	}
+	return *this;
+}
 
 eOperandType AbstractVM::getType(const std::string &type) const {
 	if (type == "int8") {return (OT_INT8);}
@@ -57,11 +69,13 @@ void AbstractVM::calculate(avmParser::ProgContext *ctx) {
 		}
 	}
 	if (!_debugMode) {
-		throw std::logic_error("Error! No \"exit\" command at the end of file! Undefined behavior!");
+		throw std::logic_error(
+			"Error! No \"exit\" command at the end of file! Undefined behavior!");
 	}
 	else {
-		std::cout << "Error! No \"exit\" command at the end of file! Undefined behavior!"
-				  << std::endl;
+		std::cout
+			<< "Error! No \"exit\" command at the end of file! Undefined behavior!"
+			<< std::endl;
 	}
 }
 
@@ -106,8 +120,9 @@ bool AbstractVM::_assert(avmParser::LineContext *ctx,
 						 const eOperandType &type,
 						 const std::string &value) const {
 
-	if (_stack.empty())
+	if (_stack.empty()) {
 		return false;
+	}
 	else if (_stack.back()->toString() == value
 		&& _stack.back()->getType() == type) {return true;}
 	else if (!_debugMode) {
@@ -259,8 +274,8 @@ void AbstractVM::_print(avmParser::LineContext *ctx) const {
 		throw std::out_of_range(
 			"Error in line: " + std::to_string(ctx->start->getLine())
 				+ ". Stack is empty.");
-	} else if (_stack.empty() && isDebugMode())
-	{
+	}
+	else if (_stack.empty() && isDebugMode()) {
 		std::cout << "Error in line: " + std::to_string(ctx->start->getLine())
 			+ ". Stack is empty." << std::endl;
 		return;
@@ -284,3 +299,5 @@ void AbstractVM::_print(avmParser::LineContext *ctx) const {
 				  << std::endl;
 	}
 }
+
+
