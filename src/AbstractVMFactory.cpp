@@ -102,10 +102,3 @@ AbstractVMFactory &AbstractVMFactory::operator=(const AbstractVMFactory &src) {
 	static_cast<void>(src);
 	return *this;
 }
-
-
-///TODO better overflow for float and double
-
-
-
-///TODO float double overflow

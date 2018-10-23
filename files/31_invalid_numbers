@@ -1,0 +1,4 @@
+push double(1)
+push int16(2.0)
+push int16()
+exit

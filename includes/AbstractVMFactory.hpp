@@ -7,7 +7,6 @@
 
 #include "IOperand.hpp"
 
-//TODO Copelin
 class AbstractVMFactory {
 	public:
 		AbstractVMFactory();
