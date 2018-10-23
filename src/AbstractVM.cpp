@@ -44,9 +44,12 @@ void AbstractVM::calculate(avmParser::ProgContext *ctx) {
 	for (auto line : ctx->line()) {
 		if (line->instruction()) {
 			std::string opcode = line->instruction()->opcode()->getText();
+
+
+
 			if (opcode == "push" && line->instruction()->values()) {
-				_push(getType(line->instruction()->values()->type()->getText()),
-					  line->instruction()->values()->argument()->getText());
+				_push(getType(line->instruction()->values()->type()->children[0]->getText()),
+					  line->instruction()->values()->type()->children[2]->getText());
 			}
 			else if (opcode == "exit") {
 				for (auto i : _stack) {delete i;}
@@ -56,9 +59,9 @@ void AbstractVM::calculate(avmParser::ProgContext *ctx) {
 			else if (opcode == "dump") {_dump(line);}//
 			else if (opcode == "assert") {
 				_assert(line,
-						getType(line->instruction()->values()->type()
+						getType(line->instruction()->values()->type()->children[0]
 									->getText()),
-						line->instruction()->values()->argument()->getText());
+						line->instruction()->values()->type()->children[2]->getText());
 			}
 			else if (opcode == "add") {_add(line);}
 			else if (opcode == "sub") {_sub(line);}
@@ -129,13 +132,13 @@ bool AbstractVM::_assert(avmParser::LineContext *ctx,
 		throw std::invalid_argument(
 			"Error in line: " + std::to_string(ctx->start->getLine())
 				+ ". Value \"" + value + "\" with type \""
-				+ ctx->instruction()->values()->type()->getText()
+				+ ctx->instruction()->values()->type()->children[0]->getText()
 				+ "\" not exist!");
 	}
 	else if (_debugMode) {
 		std::cout << "Error in line: " + std::to_string(ctx->start->getLine())
 			+ ". Value \"" + value + "\" with type \""
-			+ ctx->instruction()->values()->type()->getText() + "\" not exist!"
+			+ ctx->instruction()->values()->type()->children[0]->getText() + "\" not exist!"
 				  << std::endl;
 	}
 	return false;

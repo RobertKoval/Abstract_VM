@@ -19,7 +19,7 @@ INC_DIR = includes
 LIB_INC_DIR = gen
 CXXFLAGS =  -std=c++14 -Wall -Werror -Wextra  -I. -I ./antlr4-runtime/ -I ./lib/ \
 												-I ./gen/ -I ./includes/
-LINKER =  -L lib/ -lantlr4-runtime
+LINKER =  -L ./ -lantlr4-runtime
 
 # COLORS
 RESET=		\033[0m

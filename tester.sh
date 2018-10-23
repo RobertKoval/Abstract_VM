@@ -25,20 +25,3 @@ do
    echo "=====================================================" >> drun.log
    echo "" >> drun.log
 done
-
-
-
-rm input.log
-for f in $FILES
-do
-    echo "Processing $f file..." >> input.log
-    echo "=====================================================" >> input.log
-    echo "Input" >> input.log
-    cat $f >> input.log
-    echo "\n\nOuput:" >> input.log
-    $f | ./avm -d  >> input.log 2>&1
-    ";;" >&1
-
-   echo "=====================================================" >> input.log
-   echo "" >> input.log
-done

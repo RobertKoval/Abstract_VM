@@ -28,16 +28,16 @@ opcode
     ;
 
 values
-    : type '(' argument ')'
+    : type
     ;
 
 
 type
-    : 'int8'
-    | 'int16'
-    | 'int32'
-    | 'float'
-    | 'double'
+    : 'int8' '(' N ')'
+    | 'int16' '(' N ')'
+    | 'int32' '(' N ')'
+    | 'float' '(' Z ')'
+    | 'double' '(' Z ')'
     ;
 
 argument
