@@ -89,3 +89,6 @@ int main(int ac, char **av) {
 /**
  * https://www.h-schmidt.net/FloatConverter/IEEE754.html - float converting checker
  */
+
+
+//TODO fix segfault print32(2)
