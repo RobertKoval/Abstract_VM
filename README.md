@@ -1,4 +1,4 @@
-# Abstract_VM
+# Abstract VM
 
 ```
 AbstractVM is a machine that uses a stack to compute simple arithmetic expressions.
